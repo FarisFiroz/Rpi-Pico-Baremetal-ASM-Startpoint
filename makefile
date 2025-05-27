@@ -1,12 +1,25 @@
+# All Variables
 SRC_DIRS = src/required src/program
 SRC = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.s))
-TAR = $(foreach file, $(notdir $(SRC)), built_object_files/$(file:.s=.o))
+TAR_DIR = build_garbage
+TAR = $(foreach file, $(notdir $(SRC)), $(TAR_DIR)/$(file:.s=.o))
+ELF = final.elf
 
-all: $(TAR)
+# Mark which targets are not files
+.PHONY: all clean
 
-built_object_files/%.o :
+# Make the elf file
+all: $(ELF)
+
+# dynamically make the object files
+$(TAR_DIR)/%.o :
 	@mkdir -p $(dir $@)
 	arm-none-eabi-as -mcpu=cortex-m0plus -mthumb --warn src/*/$*.s -o $@
 
+# make the final elf file
+$(ELF) : $(TAR)
+	arm-none-eabi-ld -T src/linker/pico_linker.ld -Map=$(TAR_DIR)/final.map -o $@ $^
+
 clean:
-	rm -f $(TAR)
+	rm -rf $(TAR_DIR)
+	rm -f $(ELF)
