@@ -28,7 +28,7 @@ flash: $(ELF)
 	sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program $(ELF) verify reset exit"
 
 debug: $(ELF)
-	@echo "Caching Root Password"; \
+	@echo "Caching Root Privileges"; \
 	sudo -v || exit $$?; \
 	echo "Starting OpenOCD..."; \
 	sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" & \
