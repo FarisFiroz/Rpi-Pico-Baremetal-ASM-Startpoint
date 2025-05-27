@@ -28,7 +28,16 @@ flash: $(ELF)
 	sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program $(ELF) verify reset exit"
 
 debug: $(ELF)
-	gdb -ex "target remote localhost:3333" $<
+	@echo "Caching Root Password"; \
+	sudo -v || exit $$?; \
+	echo "Starting OpenOCD..."; \
+	sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" & \
+	OCD_PID=$$!; \
+	sleep 1; \
+	echo "Starting GDB..."; \
+	gdb -ex "target remote localhost:3333" $<; \
+	echo "Killing OpenOCD..."; \
+	sudo kill $$OCD_PID
 
 # Clean build files
 clean:
