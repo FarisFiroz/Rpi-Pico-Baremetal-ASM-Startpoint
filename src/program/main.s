@@ -48,6 +48,22 @@ xosc_rdy:
 
 // }}}
 
+/* {{{ Ring Oscillator Stop
+
+I want to disable to ring oscillator as it is no longer needed. We will be using the XOSC for now.
+
+params:
+    rosc_ctrl: Control register for the ring oscillator.
+*/
+
+.equ rosc_ctrl, 0x40060000 
+
+    ldr r7, =rosc_ctrl
+    ldr r6, =(0xd1e<<12 + 0xaa0)
+    str r6, [r7]
+
+// }}}
+
 /* {{{ Reset Controller 
 
 Initially, the peripherals on the rp2040 not required to boot are held in a reset state. We can interact with the reset controller to control this behavior.
@@ -109,7 +125,7 @@ params:
 
 .equ sio_base, 0xd0000000
 .equ gpio_oe, sio_base + 0x20
-.equ gpio_out_set, sio_base + 0x14
+.equ gpio_out, sio_base + 0x10
 
 // STEP 1
     ldr r7, =gpio_oe
@@ -117,13 +133,28 @@ params:
     str r6, [r7]
 
 // STEP 2
-    ldr r7, =gpio_out_set
+    ldr r7, =gpio_out
     mov r6, #0b1
     str r6, [r7]
 
 // }}}
 
-// {{{ Infinite Loop
-jump:
-    b jump
+/* {{{ Enter Dormant state
+
+params:
+    xosc_dormant: control register for dormant state on XOSC
+*/
+.equ xosc_dormant, xosc_ctrl + 0x08
+
+    ldr r7, =xosc_dormant
+    ldr r6, =0x636f6d61
+    str r6, [r7]
+
+/// }}}
+
+// {{{ Processor Sleep
+    // wfi
+
+    mov r6, #0b0
+    str r6, [r7]
 // }}}
