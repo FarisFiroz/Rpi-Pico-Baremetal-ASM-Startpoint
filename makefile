@@ -9,7 +9,7 @@ SRC := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 # Map to object files (flattened)
 TAR := $(addprefix $(TAR_DIR)/, $(notdir $(SRC:.s=.o)))
 
-.PHONY: all clean
+.PHONY: all flash clean
 
 # Default target
 all: $(ELF)
@@ -23,6 +23,12 @@ $(TAR_DIR)/%.o: $(SRC)
 $(ELF): $(TAR)
 	@mkdir -p $(TAR_DIR)
 	arm-none-eabi-ld -T src/linker/pico_linker.ld -Map=$(TAR_DIR)/final.map -o $@ $^
+
+flash: $(ELF)
+	sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program $(ELF) verify reset exit"
+
+debug: $(ELF)
+	gdb -ex "target remote localhost:3333" $<
 
 # Clean build files
 clean:

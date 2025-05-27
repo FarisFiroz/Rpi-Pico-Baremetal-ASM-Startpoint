@@ -141,19 +141,21 @@ params:
 
 /* {{{ Enter Dormant state
 
+(Disabled for now as it is unnecessary, you can also disable clock signals manually when sleeping for processors if desired)
+
 params:
     xosc_dormant: control register for dormant state on XOSC
 */
-.equ xosc_dormant, xosc_ctrl + 0x08
-
-    ldr r7, =xosc_dormant
-    ldr r6, =0x636f6d61
-    str r6, [r7]
+//.equ xosc_dormant, xosc_ctrl + 0x08
+//
+//    ldr r7, =xosc_dormant
+//    ldr r6, =0x636f6d61
+//    str r6, [r7]
 
 /// }}}
 
 // {{{ Processor Sleep
-    // wfi
+    wfi
 
     mov r6, #0b0
     str r6, [r7]
