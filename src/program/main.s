@@ -1,5 +1,6 @@
-.global start
-start:
+.section .reset, "ax"
+.global _start
+_start:
 
 /* {{{ Reset Controller 
 
