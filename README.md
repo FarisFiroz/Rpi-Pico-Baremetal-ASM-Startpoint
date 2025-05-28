@@ -44,8 +44,13 @@ If you would like to use the UF2 method of flashing the rpi pico, you can instal
 
 # References
 [Life with david: BMA 04](https://github.com/LifeWithDavid/RaspberryPiPico-BareMetalAdventures/tree/main/Chapter%2004)
+
 [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf)
+
 [Rpi Pico Pinout](https://www.raspberrypi.com/documentation/microcontrollers/images/pico-pinout.svg)
+
 [Rpi Pico W Pinout](https://www.raspberrypi.com/documentation/microcontrollers/images/picow-pinout.svg)
+
 [Rpi Pico SDK](https://github.com/raspberrypi/pico-sdk)
+
 [ARMv6-M Architecture Reference Manual](https://documentation-service.arm.com/static/5f8ff05ef86e16515cdbf826)
