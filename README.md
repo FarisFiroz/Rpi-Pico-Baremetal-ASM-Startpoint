@@ -15,7 +15,6 @@ Bare metal programming is complex. Documentation and Readability of code is an i
 
 Assembly code is split into different sections and documented to make understanding the code simple.
 - The code itself uses assembler tricks to ensure that readability is maintained. These assembler tricks ensure that memory savings will be the same regardless of if the code itself may not prioritize them. 
-- 
 
 Linker Scripts are also documented as much as possible.
 TODO - (Document makefile)
