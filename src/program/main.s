@@ -11,6 +11,9 @@ Initially, the peripherals on the rp2040 not required to boot are held in a rese
 In STEP 1, we will clear the reset on iobank_0 as this has the controls for all the gpio pins.
 In STEP 2, we will check whether the reset on iobank_0 was successful, and infinite loop if not
 
+IMPORTANT:
+Using this in the future: Simply just change the value being moved to r6 with the correct necessary items.
+
 params:
     rst_base: base register for clearing reset controller
     rst_clr: atomic register for clearing reset controller
