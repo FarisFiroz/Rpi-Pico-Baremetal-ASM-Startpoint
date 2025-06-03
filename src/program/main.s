@@ -2,7 +2,7 @@
 .global _start
 _start:
 
-.include "src/include/clocks.s"
+.include "src/includes/clocks.s"
 
 /* {{{ Reset Controller 
 
