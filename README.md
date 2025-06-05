@@ -10,6 +10,16 @@ It includes a variety of things to make new projects as simple as possible such 
 - A makefile that dynamically adds new .s files in the src/program or src/required directories to the dependency tree for builds
     - The makefile is also capable of flashing the pico using the debug probe and opening gdb with the debug server properly running.
 
+# How do I use this?
+Using this project is extremely simple as all build scripts are available in the makefile.
+
+In the command line, typing these commands does these things:
+- `make`: will build the final fully assembled and linked elf file, it will output all assembled object files in the build_garbage folder along with a memory map created during linking.
+- `make clean`: will delete the build garbage folder along with everything inside, as well as any built elf or uf2 files
+- `make uf2`: will build a uf2 file that you can program the pico with using the bootloader method
+- `make flash`: (NEED Pico Debugger plugged in properly) Will flash the elf file to the pico directly using the pico debugger
+- `make debug`: Will open gdb and will stop at a breakpoint specified at (*\_start), this is where the main function usually resides
+
 # Readability and Documentation
 Bare metal programming is complex. Documentation and Readability of code is an important factor in ensuring quick development time.
 
@@ -40,7 +50,6 @@ Additionally, if you would like to also use a debugger and already have openocd,
 
 If you would like to use the UF2 method of flashing the rpi pico, you can install:
 - elf2uf2-rs
-**Warning for the UF2 method, this is not supported by the makefile currently. You will have to use the function manually and move the file manually unless you modify the makefile.**
 
 # References
 [Life with david: BMA 04](https://github.com/LifeWithDavid/RaspberryPiPico-BareMetalAdventures/tree/main/Chapter%2004)
